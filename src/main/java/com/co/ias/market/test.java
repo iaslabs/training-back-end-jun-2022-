@@ -1,5 +1,6 @@
 package com.co.ias.market;
 
+import com.co.ias.market.infranstructure.models.ProductDTO;
 import com.co.ias.market.products.application.domain.*;
 import com.co.ias.market.products.application.domain.valueObjs.ProductDescription;
 import com.co.ias.market.products.application.domain.valueObjs.ProductId;
@@ -20,6 +21,11 @@ public class test {
             System.out.println(e.getMessage());
         }
 
+        ProductDTO productDTO = new ProductDTO(1L, "headphone", 100, "description");
+        Product product = productDTO.toDomain();
+        System.out.println("dto example" + product);
 
+        ProductDTO productDTO1 = ProductDTO.fromDomain(product);
+        System.out.println("from domain" + productDTO1);
     }
 }

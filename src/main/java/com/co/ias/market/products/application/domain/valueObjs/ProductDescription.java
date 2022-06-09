@@ -6,7 +6,9 @@ public class ProductDescription {
     private final String value;
 
     public ProductDescription(String value) {
-        Validate.isTrue(value.length() <= 40, "Product description can not be longer than 40 characters");
+        if (value != null) {
+            Validate.isTrue(value.length() <= 40, "Product description can not be longer than 40 characters");
+        }
         this.value = value;
     }
 
