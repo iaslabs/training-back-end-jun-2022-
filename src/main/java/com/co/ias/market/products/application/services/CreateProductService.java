@@ -29,8 +29,11 @@ public class CreateProductService implements CreateProductUseCase {
                 new ProductPrice(productDTO.getPrice()),
                 new ProductDescription(productDTO.getDescription()));
 
+
+        ///logic store
         productRepository.store(product);
 
+        productDTO.setStatus("Created");
         return productDTO;
     }
 }

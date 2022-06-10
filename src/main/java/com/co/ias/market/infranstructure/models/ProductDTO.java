@@ -11,6 +11,7 @@ public class ProductDTO {
     private String name;
     private Integer price;
     private String description;
+    private String status;
 
     public ProductDTO(Long productId, String name, Integer price, String description) {
         this.productId = productId;
@@ -70,6 +71,14 @@ public class ProductDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override

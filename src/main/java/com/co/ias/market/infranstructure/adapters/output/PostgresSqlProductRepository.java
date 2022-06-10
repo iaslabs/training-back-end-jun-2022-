@@ -1,5 +1,6 @@
 package com.co.ias.market.infranstructure.adapters.output;
 
+import com.co.ias.market.infranstructure.logSystem.Log;
 import com.co.ias.market.infranstructure.models.ProductDAO;
 import com.co.ias.market.products.application.domain.Product;
 import com.co.ias.market.products.application.domain.valueObjs.ProductId;
@@ -70,11 +71,40 @@ public class PostgresSqlProductRepository implements ProductRepository {
 
     @Override
     public void update(Product product) {
+        String sql = "Update products Set name = ?, price = ?, description = ? Where id = ?";
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
+            preparedStatement.setString(1, product.getName().getValue());
+            preparedStatement.setInt(2, product.getPrice().getValue());
+            preparedStatement.setString(3, product.getDescription().getValue());
+            preparedStatement.setLong(4, product.getId().getValue());
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException exception) {
+            Log log = new Log(exception.getMessage(), "Error queryn database");
+            log.logger();
+            throw new RuntimeException("Error queryn database", exception);
+        }
     }
 
     @Override
     public Boolean delete(ProductId productId) {
-        return null;
+        String sql = "Delete from products Where id = ?";
+
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setLong(1, productId.getValue());
+
+            Boolean result = preparedStatement.execute();
+
+            return result;
+
+        } catch (SQLException exception) {
+            Log log = new Log(exception.getMessage(), "Error queryn database");
+            throw  new RuntimeException("Error queryng database", exception);
+        }
     }
 }
