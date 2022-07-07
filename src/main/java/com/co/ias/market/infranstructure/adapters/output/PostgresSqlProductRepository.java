@@ -14,7 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-@Repository
 public class PostgresSqlProductRepository implements ProductRepository {
 
     private final DataSource dataSource;
